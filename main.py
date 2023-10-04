@@ -18,9 +18,13 @@ api = tweepy.API(auth)
 
 insta = GetInstaPosts()
 
-date = datetime(2023, 8, 28)
+date = datetime(2023, 10, 4)
 
-file_destination = r'C:\Users\r4che\Downloads\tweet-poster-alt\posts\New Post ' + datetime.strftime(date, '%Y-%m-%d') + "\\"
+file_destination = (
+        r'C:\Users\r4che\Downloads\tweet-poster-alt\posts\New Post '
+        + datetime.strftime(date, '%Y-%m-%d')
+        + "\\"
+)
 print(file_destination)
 
 posts_data = insta.get_media('kclwistem', date)
@@ -39,5 +43,4 @@ for post in posts_data:
         media_ids.append(media_id)
         print(media_ids)
 
-    client.create_tweet(text = caption, media_ids= media_ids, user_auth = True)
-
+    client.create_tweet(text=caption, media_ids=media_ids, user_auth=True)

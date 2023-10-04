@@ -37,7 +37,13 @@ class GetInstaPosts():
 
             self.L.download_post(post, target=folder_name)
 
-            data = [post.caption]
+            if len(post.caption) > 250:
+                caption = input("Please input a suitable caption below 250 characters")
+                caption = caption.replace("\\n\\n", "\n\n")
+            else:
+                caption = post.caption
+
+            data = [caption]
 
             media = []
 
@@ -51,4 +57,3 @@ class GetInstaPosts():
             list_posts.append(data)
 
         return list_posts
-    
