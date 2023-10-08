@@ -18,7 +18,7 @@ api = tweepy.API(auth)
 
 insta = GetInstaPosts()
 
-date = datetime(2023, 10, 4)
+date = datetime(2023, 10, 7)
 
 file_destination = (
         r'C:\Users\r4che\Downloads\tweet-poster-alt\posts\New Post '
@@ -27,7 +27,9 @@ file_destination = (
 )
 print(file_destination)
 
-posts_data = insta.get_media('kclwistem', date)
+idx_from = 1
+
+posts_data = insta.get_media('kclwistem', date, idx_from)
 
 print(posts_data)
 

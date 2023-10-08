@@ -20,11 +20,15 @@ class GetInstaPosts():
     list: A list of elements representing in the following order - caption of post, a list of the media posted
     '''
 
-    def get_media(self, username, date):
+    def get_media(self, username, date, idx_from = 0):
         profile = instaloader.Profile.from_username(self.L.context, username)
         posts = profile.get_posts()
 
-        new_posts = [post for post in posts if datetime.strftime(post.date, '%Y-%m-%d') == datetime.strftime(date, '%Y-%m-%d')]
+        new_posts = [
+            post for post in posts
+            if datetime.strftime(post.date, '%Y-%m-%d')
+            == datetime.strftime(date, '%Y-%m-%d')
+        ]
 
         list_posts = []
 
@@ -48,12 +52,14 @@ class GetInstaPosts():
             media = []
 
             if post.typename == 'GraphSidecar':
-                for i in range(post.mediacount):
+                for i in range(idx_from, post.mediacount):
                     file_name = str(post.date_utc).replace(":", "-").replace(" ", "_") + '_UTC_' + f'{i+1}' + '.jpg'
                     media.append(file_name)
             else:
                 media.append(self.L.format_filename(post, target=profile.username) + '.jpg')
             data.append(media)
             list_posts.append(data)
+
+        list_posts.reverse()
 
         return list_posts
